@@ -1,116 +1,45 @@
-# Sistema de Vendas - Loja de Roupas
+# 📊 Sistema de Vendas - Loja de Roupas
 
-## 🎯 Objetivo do Projeto
-
-Este projeto tem como objetivo implementar um **sistema simples de vendas em C** para uma loja de roupas, com as seguintes funcionalidades:
-
-- Registrar vendas, aplicando descontos automáticos.
-- Armazenar os registros em **dois formatos de arquivo**: TXT (ponto e vírgula) e CSV (vírgula).
-- Gerar relatórios filtrando por data específica.
-- Apresentar estatísticas como faturamento, item mais vendido e menos vendido.
-
-O sistema facilita o acompanhamento de vendas de maneira prática e pode ser expandido para outros tipos de relatórios e funcionalidades.
+Este projeto é um sistema em linguagem C para **registro, armazenamento e geração de relatórios de vendas** de uma loja de roupas. O programa permite cadastrar vendas, armazenar os dados em arquivos TXT e CSV, e gerar relatórios detalhados por data, ordenando os resultados pelo valor total da venda.
 
 ---
 
-## 🛠️ Estruturas e Funções do Sistema
+## ✨ Funcionalidades
 
-Abaixo, segue a explicação das principais funções e estruturas utilizadas:
+✅ Cadastro de vendas com desconto automático para grandes quantidades  
+✅ Armazenamento simultâneo em arquivos `.txt` e `.csv`  
+✅ Relatórios por data, incluindo:
+- Faturamento bruto
+- Quantidade de clientes atendidos
+- Item mais vendido
+- Item menos vendido
+- Listagem das vendas em ordem decrescente de valor
 
----
-
-### `struct Venda`
-Define os dados de cada venda:
-- `data`: Data no formato `dd/mm/yyyy`.
-- `codigo`: Código numérico do item.
-- `nome`: Nome do produto.
-- `marca`: Marca do produto.
-- `quantidade`: Quantidade vendida.
-- `precoUnitario`: Valor unitário.
-- `valorTotal`: Valor total com desconto, se aplicável.
-
----
-
-### `float calcularValorTotal(int quantidade, float precoUnitario)`
-Calcula o valor total da venda:
-- Se quantidade >= 3, aplica 10% de desconto automaticamente.
-- Retorna o total calculado.
+✅ Menu interativo com opções:
+1. Registrar nova venda
+2. Gerar relatório por data
+0. Sair
 
 ---
 
-### `void gravarVendaArquivo(Venda v)`
-Registra a venda em dois arquivos:
-- **loja_roupa.txt**: formato delimitado por ponto e vírgula `;`.
-- **loja_roupa.csv**: formato delimitado por vírgula `,`, ideal para planilhas Excel.
-- Ao criar o CSV, escreve automaticamente o cabeçalho na primeira execução.
+## 🎯 Objetivo
+
+O sistema foi desenvolvido para **demonstrar conceitos de manipulação de arquivos, uso de structs, ordenação e operações básicas de relatórios** em C. Pode ser utilizado como projeto acadêmico, estudo de caso ou base para sistemas mais robustos.
 
 ---
 
-### `int carregarVendasArquivo(Venda vendas[], int max)`
-Carrega todas as vendas do arquivo TXT:
-- Lê linha por linha e preenche o array `vendas`.
-- Retorna a quantidade de vendas carregadas.
-- Essa função é usada para gerar relatórios.
+## ⚙️ Estrutura de Dados
 
----
+A principal estrutura utilizada é a `struct Venda`:
 
-### `void ordenarVendasPorValorDecrescente(Venda vendas[], int n)`
-Ordena o array de vendas em ordem decrescente de valor total:
-- Utiliza o algoritmo **Bubble Sort** para manter o código simples.
-- Permite listar as vendas com maiores valores primeiro.
-
----
-
-### `void gerarRelatoriosPorData(char data[])`
-Gera um relatório de vendas filtrando por data:
-- Mostra o faturamento total do dia.
-- Conta quantos clientes compraram.
-- Identifica o item mais e menos vendido.
-- Exibe uma lista ordenada das vendas.
-
----
-
-### `main()`
-Controla todo o fluxo do programa:
-1. Exibe o menu de cadastro de vendas.
-2. Coleta os dados de cada venda.
-3. Salva os registros nos arquivos.
-4. Pergunta ao usuário se deseja gerar um relatório por data.
-
----
-
-## 📝 Notas Técnicas
-
-- **Linguagem C**: escolhida por ser didática e permitir fácil manipulação de arquivos.
-- **Arquivos TXT e CSV**: usados para permitir portabilidade dos dados.
-- **scanf com especificadores**: foram utilizados para evitar problemas de leitura com espaços.
-- **Algoritmo Bubble Sort**: simples de implementar para ordenar vendas.
-- **Controle de cabeçalho CSV**: evita duplicação do cabeçalho usando `ftell()`.
-
----
-
-## 💡 Sugestões de Expansão
-
-Aqui vão algumas ideias de melhoria:
-
-- Implementar **busca por faixa de datas** (por exemplo, relatório semanal).
-- Gerar relatórios agrupados por produto ou marca.
-- Permitir remoção e edição de registros.
-- Criar uma interface gráfica usando uma biblioteca como **GTK**.
-- Criar um modo de exportação em **JSON** ou **XML**.
-
----
-
-## 🙌 Contribuição
-
-Este projeto foi desenvolvido como base de aprendizado. Fique à vontade para:
-- Adaptar a outros tipos de lojas.
-- Melhorar a organização de arquivos.
-- Incrementar a lógica de descontos.
-
-Se precisar de ajuda, abra um **issue** ou envie uma mensagem!
-
----
-
-**Autor:** [Seu Nome]  
-**Data:** [Data Atual]
+```c
+typedef struct {
+    char data[11];           // Formato dd/mm/yyyy
+    int codigo;              // Código do item
+    char nome[50];           // Nome do item
+    char marca[30];          // Marca
+    int quantidade;          // Quantidade vendida
+    float precoUnitario;     // Preço por unidade
+    float valorTotal;        // Valor total da venda (com desconto)
+} Venda;
+```c
