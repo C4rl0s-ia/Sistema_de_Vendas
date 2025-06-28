@@ -110,7 +110,6 @@ Algumas sugestões de evolução do projeto:
 - 🔐 Autenticação de usuários
 - 📄 Exportação automática em PDF
 - 🖥️ Interface gráfica com bibliotecas como GTK
-- 🚀 Melhoria do algoritmo de ordenação (QuickSort)
 - 📊 Dashboard de estatísticas gerais
 - 🔄 Backup automático dos arquivos de vendas
 
