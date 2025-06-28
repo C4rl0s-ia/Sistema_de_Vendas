@@ -92,18 +92,41 @@ int carregarVendasArquivo(Venda vendas[], int max) {
 }
 
 // Função para ordenar vendas em ordem decrescente de valor total
-void ordenarVendasPorValorDecrescente(Venda vendas[], int n) {
-    int i, j;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (vendas[j].valorTotal < vendas[j + 1].valorTotal) {
-                Venda temp = vendas[j];
-                vendas[j] = vendas[j + 1];
-                vendas[j + 1] = temp;
-            }
+// Função para trocar duas vendas
+void trocar(Venda *a, Venda *b) {
+    Venda temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Função de particionamento (para ordenar em ordem decrescente)
+int particionar(Venda vendas[], int inicio, int fim) {
+    float pivo = vendas[fim].valorTotal;
+    int i = inicio - 1;
+    for (int j = inicio; j < fim; j++) {
+        if (vendas[j].valorTotal >= pivo) { // Maior primeiro
+            i++;
+            trocar(&vendas[i], &vendas[j]);
         }
     }
+    trocar(&vendas[i + 1], &vendas[fim]);
+    return i + 1;
 }
+
+// Função recursiva do QuickSort
+void quickSort(Venda vendas[], int inicio, int fim) {
+    if (inicio < fim) {
+        int indicePivo = particionar(vendas, inicio, fim);
+        quickSort(vendas, inicio, indicePivo - 1);
+        quickSort(vendas, indicePivo + 1, fim);
+    }
+}
+
+// Função principal que chama o QuickSort
+void ordenarVendasPorValorDecrescente(Venda vendas[], int n) {
+    quickSort(vendas, 0, n - 1);
+}
+
 
 // Função para gerar relatórios de uma data específica
 void gerarRelatoriosPorData(char data[]) {
